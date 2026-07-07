@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import LazyImage from '../components/LazyImage';
 import { ArrowLeft, X, Plus, Minus, Maximize2, Sun, Moon, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const categoryInfo = {

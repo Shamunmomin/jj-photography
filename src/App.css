@@ -1252,9 +1252,7 @@ nav {
   }
 }
 
-.hero-slide {
-  animation: kenBurns 8s ease-in-out infinite alternate;
-}
+
 
 @keyframes pulse {
   0%, 100% {
@@ -2090,5 +2088,10 @@ nav {
 
   .gallery-header-content {
     padding: 1rem 0;
+  }
+
+  .view-all-row {
+    flex-direction: column;
+    align-items: center;
   }
 }

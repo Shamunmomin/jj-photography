@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 
 function Loading() {
   return (

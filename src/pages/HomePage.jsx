@@ -126,7 +126,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
 
       <div className="grain-overlay" />
 
-      <header className="header">
+      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <Motion.nav
           initial={{ y: -100 }}
           animate={{ y: 0 }}
@@ -172,7 +172,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
       </header>
 
       <section id="hero" className="hero-section">
-        <div className="hero-slider">
+        <div className="hero-slider" style={{ transform: `translateY(${scrollY * 0.4}px)` }}>
           {images.hero.map((img, index) => (
             <Motion.div
               key={img}
@@ -321,7 +321,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         >
           <Motion.div className="about-image" variants={fadeInUp}>
             <div className="about-image-wrapper">
-              <img src={images.about} alt="Photographer" loading="lazy" />
+              <LazyImage src={images.about} alt="Photographer" />
               <div className="about-image-frame" />
             </div>
             <Motion.div className="about-stats" variants={staggerContainer}>
