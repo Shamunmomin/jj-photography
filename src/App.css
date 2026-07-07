@@ -1274,12 +1274,6 @@ nav {
   text-align: center;
 }
 
-  .view-all-row {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 /* Floating WhatsApp Button */
 .whatsapp-float {
   position: fixed;
@@ -2065,7 +2059,7 @@ nav {
     font-size: 0.85rem;
   }
 
-  .editorial-wrapper {
+  .album-wrapper {
     padding: 0 1rem 3rem;
   }
 
@@ -2085,6 +2079,16 @@ nav {
   .gallery-header {
     padding: 1rem;
   }
+
+  .gallery-header-content {
+    padding: 1rem 0;
+  }
+
+  .view-all-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
   .gallery-header-content {
     padding: 1rem 0;

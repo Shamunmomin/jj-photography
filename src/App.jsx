@@ -44,6 +44,13 @@ function App() {
             theme={theme}
             toggleTheme={toggleTheme}
           />
+        ) : page === 'comparisons' ? (
+          <ComparisonPage
+            key="comparisons"
+            onBack={() => setPage('home')}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
         ) : (
           <GalleryPage
             key={page}

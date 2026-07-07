@@ -4,7 +4,7 @@ import { motion as Motion } from 'framer-motion';
 import {
   Menu, X, Camera, MessageCircle, Sun, Moon,
   ChevronLeft, ChevronRight, Mail, User, MessageSquare,
-  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, ArrowUp
+  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, SlidersHorizontal
 } from 'lucide-react';
 import { InstagramIcon, FacebookIcon } from '../components/Icons';
 import LazyImage from '../components/LazyImage';

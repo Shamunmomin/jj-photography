@@ -69,7 +69,7 @@ function EditorialHero({ image, onClick }) {
       className={`editorial-hero ${inView ? 'visible' : ''}`}
       onClick={onClick}
     >
-      <img src={image.src} alt={image.title} loading="eager" />
+      <LazyImage src={image.src} alt={image.title} />
       <div className="editorial-hero-overlay">
         <h2>{image.title}</h2>
         <p>{image.description}</p>
@@ -88,7 +88,7 @@ function EditorialGridItem({ image, onClick }) {
       className={`editorial-grid-item ${inView ? 'visible' : ''}`}
       onClick={onClick}
     >
-      <img src={image.src} alt={image.title} loading="lazy" />
+      <LazyImage src={image.src} alt={image.title} />
     </div>
   );
 }
@@ -113,7 +113,7 @@ function EditorialSplitLeft({ images, onImageClick, startIndex }) {
   return (
     <div className="editorial-split">
       <div className="editorial-split-large" onClick={() => onImageClick(large, startIndex)}>
-        <img src={large.src} alt={large.title} loading="lazy" />
+        <LazyImage src={large.src} alt={large.title} />
       </div>
       <div className="editorial-split-stack">
         {stacked.map((img, i) => (
@@ -122,7 +122,7 @@ function EditorialSplitLeft({ images, onImageClick, startIndex }) {
             className="editorial-split-stack-item"
             onClick={() => onImageClick(img, startIndex + 1 + i)}
           >
-            <img src={img.src} alt={img.title} loading="lazy" />
+            <LazyImage src={img.src} alt={img.title} />
           </div>
         ))}
       </div>
@@ -143,12 +143,12 @@ function EditorialSplitRight({ images, onImageClick, startIndex }) {
             className="editorial-split-stack-item"
             onClick={() => onImageClick(img, startIndex + i)}
           >
-            <img src={img.src} alt={img.title} loading="lazy" />
+            <LazyImage src={img.src} alt={img.title} />
           </div>
         ))}
       </div>
       <div className="editorial-split-large" onClick={() => onImageClick(large, startIndex + 2)}>
-        <img src={large.src} alt={large.title} loading="lazy" />
+        <LazyImage src={large.src} alt={large.title} />
       </div>
     </div>
   );
