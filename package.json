@@ -1,9 +1,9 @@
 {
-  "name": "jj-photography",
+  "name": "ss-tech-photography",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Shamunmomin.github.io/jj-photography",
+  "homepage": "https://Shamunmomin.github.io/ss-tech-photography",
   "scripts": {
      "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

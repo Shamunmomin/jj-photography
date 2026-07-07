@@ -4,9 +4,10 @@ import { motion as Motion } from 'framer-motion';
 import {
   Menu, X, Camera, MessageCircle, Sun, Moon,
   ChevronLeft, ChevronRight, Mail, User, MessageSquare,
-  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight
+  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, ArrowUp
 } from 'lucide-react';
 import { InstagramIcon, FacebookIcon } from '../components/Icons';
+import LazyImage from '../components/LazyImage';
 import { images, socialLinks, photographerInfo } from '../data/images';
 import { weddings } from '../data/weddings';
 import { portraits } from '../data/portraits';
@@ -30,7 +31,24 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [lightboxImage, setLightboxImage] = useState(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 600);
+      setScrolled(window.scrollY > 50);
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const allPortfolioItems = [
     ...weddings.map((img, i) => ({ src: img.src, title: img.title, category: 'weddings', id: `w-${i}` })),
@@ -71,9 +89,9 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
   ];
 
   const testimonials = [
-    { name: 'Sarah & Michael', text: 'JJ Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'New York' },
+    { name: 'Sarah & Michael', text: 'SS Tech Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'New York' },
     { name: 'Emily Chen', text: 'The portrait session was transformative. I\'ve never felt so beautiful in photos. Absolutely recommend!', location: 'Los Angeles' },
-    { name: 'David & Lisa', text: 'Our pre-wedding shoot in Paris was like a movie scene. JJ captured our chemistry perfectly.', location: 'Paris' },
+    { name: 'David & Lisa', text: 'Our pre-wedding shoot in Paris was like a movie scene. SS Tech captured our chemistry perfectly.', location: 'Paris' },
     { name: 'Maria Rodriguez', text: 'Commercial shoot exceeded all expectations. The images elevated our entire brand presence.', location: 'Miami' },
     { name: 'James Thompson', text: 'Family photos have never looked this good. Kids were comfortable and we got genuine smiles!', location: 'Chicago' }
   ];
@@ -103,7 +121,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
     <div className="app" ref={containerRef}>
       <Motion.div
         className="custom-cursor"
-        style={{ x: cursorPos.x - 0, y: cursorPos.y - 0 }}
+        style={{ x: cursorPos.x - 20, y: cursorPos.y - 20 }}
       />
 
       <div className="grain-overlay" />
@@ -116,7 +134,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         >
           <div className="logo" onClick={() => scrollToSection('hero')}>
             <Camera className="logo-icon" />
-            <span>JJ Photography</span>
+            <span>SS Tech Photography</span>
           </div>
 
           <div className="nav-links">
@@ -255,7 +273,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
                 whileHover={{ scale: 1.02 }}
                 onClick={() => setLightboxImage(item.src)}
               >
-                <img src={item.src} alt={item.title} loading="lazy" />
+                <LazyImage src={item.src} alt={item.title} />
                 <div className="masonry-overlay">
                   <h3>{item.title}</h3>
                   <span>{item.category}</span>
@@ -437,6 +455,65 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         </div>
       </section>
 
+      <section id="signup" className="signup-section">
+        <Motion.div
+          className="section-header"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <Motion.span variants={fadeInUp} className="section-subtitle">Stay Connected</Motion.span>
+          <Motion.h2 variants={fadeInUp} className="section-title">Join Our Newsletter</Motion.h2>
+          <Motion.p variants={fadeInUp} className="section-desc">
+            Get exclusive updates, photography tips, and special offers straight to your inbox
+          </Motion.p>
+        </Motion.div>
+
+        <Motion.div
+          className="signup-container"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <Motion.form
+            className="signup-form"
+            variants={fadeInUp}
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const email = formData.get('email');
+              const name = formData.get('name');
+              const subject = encodeURIComponent('Newsletter Signup');
+              const body = encodeURIComponent(`Hi! I'd like to sign up for the newsletter.\n\nName: ${name}\nEmail: ${email}`);
+              window.open(`${socialLinks.whatsapp}?text=${body}`, '_blank');
+              e.target.reset();
+            }}
+          >
+            <div className="signup-row">
+              <div className="signup-group">
+                <User className="signup-icon" />
+                <input type="text" name="name" placeholder="Your Name" required />
+              </div>
+              <div className="signup-group">
+                <Mail className="signup-icon" />
+                <input type="email" name="email" placeholder="Your Email" required />
+              </div>
+              <Motion.button
+                type="submit"
+                className="signup-submit"
+                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(212, 175, 55, 0.5)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Sign Up
+              </Motion.button>
+            </div>
+            <p className="signup-note">No spam, ever. Unsubscribe anytime.</p>
+          </Motion.form>
+        </Motion.div>
+      </section>
+
       <section id="contact" className="contact-section">
         <Motion.div
           className="section-header"
@@ -512,11 +589,40 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         </Motion.div>
       </section>
 
+      <motion.a
+        href={socialLinks.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-float"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={28} />
+      </motion.a>
+
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            className="scroll-top-btn"
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Scroll to top"
+          >
+            <ArrowUp size={22} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-logo">
             <Camera className="logo-icon" />
-            <span>JJ Photography</span>
+            <span>SS Tech Photography</span>
           </div>
           <p className="footer-text">Capturing moments, creating memories</p>
           <div className="footer-links">
@@ -524,7 +630,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
             <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
             <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
           </div>
-          <p className="footer-copyright">© 2024 JJ Photography. All rights reserved.</p>
+          <p className="footer-copyright">© 2024 SS Tech Photography. All rights reserved.</p>
         </div>
       </footer>
 
