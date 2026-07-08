@@ -351,7 +351,7 @@ nav {
 }
 
 .btn-secondary {
-  background: transparent;
+ background: var(--gold);
   color: var(--text-primary);
   border: 2px solid var(--gold);
 }
@@ -522,7 +522,7 @@ nav {
 }
 
 .about-section {
-  padding: 8rem 2rem;
+  padding: 1rem 2rem;
   background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
 }
 
@@ -1383,6 +1383,7 @@ nav {
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 2rem;
+  margin: 0.2rem;
   background: transparent;
   border: 2px solid var(--gold);
   color: var(--gold);

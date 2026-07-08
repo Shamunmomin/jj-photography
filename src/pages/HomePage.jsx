@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { motion as Motion } from 'framer-motion';
 import {
@@ -25,7 +26,7 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-export default function HomePage({ onNavigate, theme, toggleTheme }) {
+export default function HomePage({ theme, toggleTheme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -87,6 +88,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
     { name: 'James Thompson', text: 'Family photos have never looked this good. Kids were comfortable and we got genuine smiles!', location: 'Chicago' }
   ];
 
+  const navigate = useNavigate();
   const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   useEffect(() => {
@@ -281,7 +283,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
                 <button
                   key={cat}
                   className="view-all-btn"
-                  onClick={() => onNavigate(cat)}
+                  onClick={() => navigate(`/gallery/${cat}`)}
                 >
                   View All {cat.charAt(0).toUpperCase() + cat.slice(1)}
                   <ArrowRight size={16} />
@@ -289,7 +291,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
               ))}
             </div>
           ) : (
-            <button className="view-all-btn" onClick={() => onNavigate(activeCategory)}>
+            <button className="view-all-btn" onClick={() => navigate(`/gallery/${activeCategory}`)}>
               View Full {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Album
               <ArrowRight size={16} />
             </button>

@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -19,9 +20,9 @@ function Loading() {
   );
 }
 
-function App() {
-  const [page, setPage] = useState('home');
+function AppLayout() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -37,32 +38,17 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <AnimatePresence mode="wait">
-        {page === 'home' ? (
-          <HomePage
-            key="home"
-            onNavigate={setPage}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
-        ) : page === 'comparisons' ? (
-          <ComparisonPage
-            key="comparisons"
-            onBack={() => setPage('home')}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
-        ) : (
-          <GalleryPage
-            key={page}
-            category={page}
-            onBack={() => setPage('home')}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
-        )}
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/comparisons" element={<ComparisonPage theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/gallery" element={<Navigate to="/gallery/weddings" replace />} />
+          <Route path="/gallery/:category" element={<GalleryPage theme={theme} toggleTheme={toggleTheme} />} />
+        </Routes>
       </AnimatePresence>
     </Suspense>
   );
 }
 
-export default App;
+export default function App() {
+  return <AppLayout />;
+}

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Sun, Moon, Sparkles } from 'lucide-react';
 import ImageComparison from '../components/ImageComparison';
@@ -14,7 +15,8 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
 };
 
-export default function ComparisonPage({ onBack, theme, toggleTheme }) {
+export default function ComparisonPage({ theme, toggleTheme }) {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
 
   return (
@@ -29,7 +31,7 @@ export default function ComparisonPage({ onBack, theme, toggleTheme }) {
         <div className="gallery-header-top">
           <motion.button
             className="gallery-back-btn"
-            onClick={onBack}
+            onClick={() => navigate('/')}
             initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}

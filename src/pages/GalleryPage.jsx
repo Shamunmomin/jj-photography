@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import EditorialGallery from '../components/EditorialGallery';
 import { ArrowLeft, X, Plus, Minus, Maximize2, Sun, Moon, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -10,7 +11,7 @@ const categoryInfo = {
   travel: { title: 'Travel', subtitle: 'Wanderlust Frames', desc: 'From the highest peaks to the deepest valleys. Capturing the world\'s beauty one frame at a time.' },
 };
 
-export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
+export default function GalleryPage({ theme, toggleTheme }) {
   const [images, setImages] = useState([]);
   const [selected, setSelected] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -19,17 +20,40 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const imgRef = useRef(null);
+  const lightboxRef = useRef(null);
+  const { category } = useParams();
+  const navigate = useNavigate();
   const info = categoryInfo[category];
 
+  // Redirect to home if category is invalid
+  if (!info) {
+    return <Navigate to="/" replace />;
+  }
+
   useEffect(() => {
-    import(`../data/${category}.js`).then(mod => {
-      setImages(mod[category]);
-    });
+    if (category && categoryInfo[category]) {
+      import(`../data/${category}.js`).then(mod => {
+        setImages(mod[category]);
+      });
+    }
   }, [category]);
 
   useEffect(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
+  }, [selected]);
+
+  // Non-passive wheel listener so preventDefault() actually blocks browser zoom
+  useEffect(() => {
+    const el = lightboxRef.current;
+    if (!el || !selected) return;
+    const handler = (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.2 : 0.2;
+      setScale(s => Math.max(1, Math.min(5, s + delta)));
+    };
+    el.addEventListener('wheel', handler, { passive: false });
+    return () => el.removeEventListener('wheel', handler);
   }, [selected]);
 
   const openImage = (img, index) => {
@@ -73,13 +97,6 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
     return () => window.removeEventListener('keydown', handleKey);
   }, [selected, goNext, goPrev]);
 
-  const handleWheel = useCallback((e) => {
-    if (!selected) return;
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.2 : 0.2;
-    setScale(s => Math.max(1, Math.min(5, s + delta)));
-  }, [selected]);
-
   const handleMouseDown = useCallback((e) => {
     if (scale <= 1) return;
     setIsDragging(true);
@@ -112,7 +129,7 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
         {/* <div className="gallery-header-top">
           <motion.button
             className="gallery-back-btn"
-            onClick={onBack}
+            onClick={() => navigate('/')}
             initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -162,11 +179,11 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
       <AnimatePresence>
         {selected && (
           <motion.div
+            ref={lightboxRef}
             className="zoom-lightbox"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onWheel={handleWheel}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
