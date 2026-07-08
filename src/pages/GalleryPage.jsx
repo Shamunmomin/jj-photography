@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import LazyImage from '../components/LazyImage';
+import EditorialGallery from '../components/EditorialGallery';
 import { ArrowLeft, X, Plus, Minus, Maximize2, Sun, Moon, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const categoryInfo = {
@@ -9,183 +9,6 @@ const categoryInfo = {
   fashion: { title: 'Fashion', subtitle: 'Style Meets Art', desc: 'Where high fashion meets artistic vision. Bold, creative, and effortlessly stunning editorials.' },
   travel: { title: 'Travel', subtitle: 'Wanderlust Frames', desc: 'From the highest peaks to the deepest valleys. Capturing the world\'s beauty one frame at a time.' },
 };
-
-const SECTION_PATTERN = ['hero', 'grid4', 'splitLeft', 'grid4', 'splitRight'];
-
-const SECTION_COUNTS = { hero: 1, grid4: 4, splitLeft: 3, splitRight: 3 };
-
-function buildSections(images) {
-  const sections = [];
-  let i = 0;
-  let patternIdx = 0;
-
-  while (i < images.length) {
-    const type = SECTION_PATTERN[patternIdx % SECTION_PATTERN.length];
-    const needed = SECTION_COUNTS[type];
-    const available = images.length - i;
-
-    if (available >= needed) {
-      sections.push({ type, images: images.slice(i, i + needed) });
-      i += needed;
-    } else {
-      sections.push({ type: 'remaining', images: images.slice(i) });
-      break;
-    }
-    patternIdx++;
-  }
-
-  return sections;
-}
-
-function useInView(threshold = 0.05) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin: '0px 0px -40px 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return [ref, inView];
-}
-
-function EditorialHero({ image, onClick }) {
-  const [ref, inView] = useInView(0.05);
-
-  return (
-    <div
-      ref={ref}
-      className={`editorial-hero ${inView ? 'visible' : ''}`}
-      onClick={onClick}
-    >
-      <LazyImage src={image.src} alt={image.title} />
-      <div className="editorial-hero-overlay">
-        <h2>{image.title}</h2>
-        <p>{image.description}</p>
-        <span className="editorial-hero-location">{image.location}</span>
-      </div>
-    </div>
-  );
-}
-
-function EditorialGridItem({ image, onClick }) {
-  const [ref, inView] = useInView(0.05);
-
-  return (
-    <div
-      ref={ref}
-      className={`editorial-grid-item ${inView ? 'visible' : ''}`}
-      onClick={onClick}
-    >
-      <LazyImage src={image.src} alt={image.title} />
-    </div>
-  );
-}
-
-function EditorialGrid4({ images, onImageClick, startIndex }) {
-  return (
-    <div className="editorial-grid-4">
-      {images.map((img, i) => (
-        <EditorialGridItem
-          key={img.id}
-          image={img}
-          onClick={() => onImageClick(img, startIndex + i)}
-        />
-      ))}
-    </div>
-  );
-}
-
-function EditorialSplitLeft({ images, onImageClick, startIndex }) {
-  const [large, ...stacked] = images;
-
-  return (
-    <div className="editorial-split">
-      <div className="editorial-split-large" onClick={() => onImageClick(large, startIndex)}>
-        <LazyImage src={large.src} alt={large.title} />
-      </div>
-      <div className="editorial-split-stack">
-        {stacked.map((img, i) => (
-          <div
-            key={img.id}
-            className="editorial-split-stack-item"
-            onClick={() => onImageClick(img, startIndex + 1 + i)}
-          >
-            <LazyImage src={img.src} alt={img.title} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function EditorialSplitRight({ images, onImageClick, startIndex }) {
-  const stacked = images.slice(0, 2);
-  const large = images[2];
-
-  return (
-    <div className="editorial-split">
-      <div className="editorial-split-stack">
-        {stacked.map((img, i) => (
-          <div
-            key={img.id}
-            className="editorial-split-stack-item"
-            onClick={() => onImageClick(img, startIndex + i)}
-          >
-            <LazyImage src={img.src} alt={img.title} />
-          </div>
-        ))}
-      </div>
-      <div className="editorial-split-large" onClick={() => onImageClick(large, startIndex + 2)}>
-        <LazyImage src={large.src} alt={large.title} />
-      </div>
-    </div>
-  );
-}
-
-function EditorialRemaining({ images, onImageClick, startIndex }) {
-  return (
-    <div className="editorial-grid-4">
-      {images.map((img, i) => (
-        <EditorialGridItem
-          key={img.id}
-          image={img}
-          onClick={() => onImageClick(img, startIndex + i)}
-        />
-      ))}
-    </div>
-  );
-}
-
-function EditorialSection({ section, onImageClick, startIndex }) {
-  const { type, images } = section;
-
-  switch (type) {
-    case 'hero':
-      return <EditorialHero image={images[0]} onClick={() => onImageClick(images[0], startIndex)} />;
-    case 'grid4':
-      return <EditorialGrid4 images={images} onImageClick={onImageClick} startIndex={startIndex} />;
-    case 'splitLeft':
-      return <EditorialSplitLeft images={images} onImageClick={onImageClick} startIndex={startIndex} />;
-    case 'splitRight':
-      return <EditorialSplitRight images={images} onImageClick={onImageClick} startIndex={startIndex} />;
-    case 'remaining':
-      return <EditorialRemaining images={images} onImageClick={onImageClick} startIndex={startIndex} />;
-    default:
-      return null;
-  }
-}
 
 export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
   const [images, setImages] = useState([]);
@@ -276,9 +99,6 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
   const zoomOut = () => setScale(s => Math.max(1, s - 0.5));
   const resetZoom = () => { setScale(1); setPosition({ x: 0, y: 0 }); };
 
-  const featured = images[0];
-  const rest = images.slice(1);
-  const sections = buildSections(rest);
 
   return (
     <motion.div
@@ -327,29 +147,10 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
       </header>
 
       <div className="editorial-wrapper">
-        {featured && (
-          <EditorialHero
-            image={featured}
-            onClick={() => openImage(featured, 0)}
-          />
-        )}
-
-        {(() => {
-          let runningIdx = 1;
-          return sections.map((section, idx) => {
-            const startIdx = runningIdx;
-            runningIdx += section.images.length;
-            return (
-              <div key={idx} className="editorial-section">
-                <EditorialSection
-                  section={section}
-                  onImageClick={openImage}
-                  startIndex={startIdx}
-                />
-              </div>
-            );
-          });
-        })()}
+        <EditorialGallery
+          images={images}
+          onImageClick={openImage}
+        />
 
         <div className="album-end-note">
           <div className="album-end-line" />

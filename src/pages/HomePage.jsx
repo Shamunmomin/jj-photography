@@ -4,7 +4,7 @@ import { motion as Motion } from 'framer-motion';
 import {
   Menu, X, Camera, MessageCircle, Sun, Moon,
   ChevronLeft, ChevronRight, Mail, User, MessageSquare,
-  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, SlidersHorizontal
+  Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, ArrowUp, SlidersHorizontal
 } from 'lucide-react';
 import { InstagramIcon, FacebookIcon } from '../components/Icons';
 import LazyImage from '../components/LazyImage';
@@ -589,7 +589,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         </Motion.div>
       </section>
 
-      <motion.a
+      <Motion.a
         href={socialLinks.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
@@ -599,11 +599,11 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
         aria-label="Chat on WhatsApp"
       >
         <MessageCircle size={28} />
-      </motion.a>
+      </Motion.a>
 
       <AnimatePresence>
         {showScrollTop && (
-          <motion.button
+          <Motion.button
             className="scroll-top-btn"
             onClick={scrollToTop}
             initial={{ opacity: 0, scale: 0 }}
@@ -614,7 +614,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
             aria-label="Scroll to top"
           >
             <ArrowUp size={22} />
-          </motion.button>
+          </Motion.button>
         )}
       </AnimatePresence>
 
