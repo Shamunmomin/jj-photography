@@ -1167,6 +1167,28 @@ nav {
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 3rem 1rem;
+  }
+
+  .footer-logo span {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .footer-links {
+    gap: 1rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.75rem;
+  }
+
   .hero-section {
     min-height: 100vh;
   }
