@@ -109,7 +109,7 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <header className="gallery-header">
-        <div className="gallery-header-top">
+        {/* <div className="gallery-header-top">
           <motion.button
             className="gallery-back-btn"
             onClick={onBack}
@@ -132,7 +132,7 @@ export default function GalleryPage({ category, onBack, theme, toggleTheme }) {
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </motion.button>
-        </div>
+        </div> */}
 
         <motion.div
           className="gallery-header-content"

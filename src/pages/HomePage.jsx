@@ -30,7 +30,6 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
   const [heroIndex, setHeroIndex] = useState(0);
   const [activeCategory, setActiveCategory] = useState('all');
   const [lightboxImage, setLightboxImage] = useState(null);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -61,7 +60,7 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
     const items = activeCategory === 'all'
       ? allPortfolioItems
       : allPortfolioItems.filter(item => item.category === activeCategory);
-    return items.slice(0, 6);
+    return items.slice(0, 4);
   };
 
   const filteredItems = getFiltered();
@@ -71,14 +70,6 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
       setHeroIndex((prev) => (prev + 1) % images.hero.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const services = [
@@ -119,11 +110,6 @@ export default function HomePage({ onNavigate, theme, toggleTheme }) {
 
   return (
     <div className="app" ref={containerRef}>
-      <Motion.div
-        className="custom-cursor"
-        style={{ x: cursorPos.x - 20, y: cursorPos.y - 20 }}
-      />
-
       <div className="grain-overlay" />
 
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
