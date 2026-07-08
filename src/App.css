@@ -1494,10 +1494,11 @@ nav {
   min-height: 100vh;
   background: var(--dark-bg);
   cursor: auto;
+  padding: 0 1rem 4rem;
 }
 
 .gallery-header {
-  padding: 2rem;
+  padding: 2rem 0;
   max-width: 1400px;
   margin: 0 auto;
 }
