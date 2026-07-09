@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { motion as Motion } from 'framer-motion';
 import {
-  Menu, X, Camera, MessageCircle, Sun, Moon,
+  Menu, X, Camera, Sun, Moon,
   ChevronLeft, ChevronRight, Mail, User, MessageSquare,
   Calendar, Heart, Award, Users, Sparkles, Clock, ArrowRight, ArrowUp, SlidersHorizontal
 } from 'lucide-react';
-import { InstagramIcon, FacebookIcon } from '../components/Icons';
+import { InstagramIcon, FacebookIcon, WhatsAppIcon } from '../components/Icons';
 import LazyImage from '../components/LazyImage';
 import { images, socialLinks, photographerInfo } from '../data/images';
 import { weddings } from '../data/weddings';
@@ -563,7 +563,7 @@ export default function HomePage({ theme, toggleTheme }) {
           <Motion.div className="contact-info" variants={fadeInUp}>
             <div className="social-links">
               <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="social-link whatsapp">
-                <MessageCircle />
+                <WhatsAppIcon />
               </a>
               <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="social-link instagram">
                 <InstagramIcon />
@@ -586,7 +586,7 @@ export default function HomePage({ theme, toggleTheme }) {
         whileTap={{ scale: 0.9 }}
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle size={28} />
+        <WhatsAppIcon size={28} />
       </Motion.a>
 
       <AnimatePresence>
@@ -614,7 +614,7 @@ export default function HomePage({ theme, toggleTheme }) {
           </div>
           <p className="footer-text">Capturing moments, creating memories</p>
           <div className="footer-links">
-            <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle /></a>
+            <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /></a>
             <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
             <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
           </div>
