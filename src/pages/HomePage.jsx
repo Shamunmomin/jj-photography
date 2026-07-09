@@ -81,11 +81,11 @@ export default function HomePage({ theme, toggleTheme }) {
   ];
 
   const testimonials = [
-    { name: 'Sarah & Michael', text: 'Demo Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'New York' },
-    { name: 'Emily Chen', text: 'The portrait session was transformative. I\'ve never felt so beautiful in photos. Absolutely recommend!', location: 'Los Angeles' },
-    { name: 'David & Lisa', text: 'Our pre-wedding shoot in Paris was like a movie scene. SS Tech captured our chemistry perfectly.', location: 'Paris' },
-    { name: 'Maria Rodriguez', text: 'Commercial shoot exceeded all expectations. The images elevated our entire brand presence.', location: 'Miami' },
-    { name: 'James Thompson', text: 'Family photos have never looked this good. Kids were comfortable and we got genuine smiles!', location: 'Chicago' }
+    { name: 'Sarah & Rihan', text: 'Demo Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'Pune City' },
+    { name: 'Amar Shah', text: 'The portrait session was transformative. I\'ve never felt so beautiful in photos. Absolutely recommend!', location: 'Mumbai' },
+    { name: 'Sanika & Suraj', text: 'Our pre-wedding shoot in Paris was like a movie scene. SS Tech captured our chemistry perfectly.', location: 'Pimpri-Chinchwad' },
+    { name: 'Arif Khan', text: 'Commercial shoot exceeded all expectations. The images elevated our entire brand presence.', location: 'Indapur' },
+    { name: 'Saim', text: 'Family photos have never looked this good. Kids were comfortable and we got genuine smiles!', location: 'Baramati' }
   ];
 
   const navigate = useNavigate();
@@ -393,7 +393,7 @@ export default function HomePage({ theme, toggleTheme }) {
           viewport={{ once: true, margin: "-100px" }}
         >
           <Motion.span variants={fadeInUp} className="section-subtitle">Client Love</Motion.span>
-          <Motion.h2 variants={fadeInUp} className="section-title">Testimonials</Motion.h2>
+          <Motion.h2 variants={fadeInUp} className="section-title">Reviews</Motion.h2>
           <Motion.p variants={fadeInUp} className="section-desc">
             Stories from the amazing people I've had the honor to work with
           </Motion.p>
@@ -610,7 +610,7 @@ export default function HomePage({ theme, toggleTheme }) {
         <div className="footer-content">
           <div className="footer-logo">
             <Camera className="logo-icon" />
-            <span >Dhawale Photography</span>
+            <span >Photography</span>
           </div>
           <p className="footer-text">Capturing moments, creating memories</p>
           <div className="footer-links">
