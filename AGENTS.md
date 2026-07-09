@@ -1,4 +1,4 @@
-# AGENTS.md — JJ Photography
+# AGENTS.md — Photography
 
 ## Project Overview
 React 19 SPA (JavaScript/JSX) — photography portfolio. Built with Vite 8. No TypeScript.

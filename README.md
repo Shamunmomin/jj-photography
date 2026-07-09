@@ -1,4 +1,4 @@
-# JJ Photography
+# Photography
 
 A professional photography portfolio website built with React, featuring an immersive editorial-style gallery, dark/light theme, and seamless user experience.
 
@@ -52,7 +52,7 @@ Manual deployment:
 npm run deploy
 ```
 
-The site is published at `https://Shamunmomin.github.io/jj-photography/`.
+The site is published at `https://Shamunmomin.github.io/photography/`.
 
 ## Gallery Data
 

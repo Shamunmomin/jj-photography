@@ -81,7 +81,7 @@ export default function HomePage({ theme, toggleTheme }) {
   ];
 
   const testimonials = [
-    { name: 'Sarah & Michael', text: 'SS Tech Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'New York' },
+    { name: 'Sarah & Michael', text: 'Demo Photography made our wedding day absolutely magical. Every photo tells a story we\'ll cherish forever.', location: 'New York' },
     { name: 'Emily Chen', text: 'The portrait session was transformative. I\'ve never felt so beautiful in photos. Absolutely recommend!', location: 'Los Angeles' },
     { name: 'David & Lisa', text: 'Our pre-wedding shoot in Paris was like a movie scene. SS Tech captured our chemistry perfectly.', location: 'Paris' },
     { name: 'Maria Rodriguez', text: 'Commercial shoot exceeded all expectations. The images elevated our entire brand presence.', location: 'Miami' },
@@ -122,7 +122,7 @@ export default function HomePage({ theme, toggleTheme }) {
         >
           <div className="logo" onClick={() => scrollToSection('hero')}>
             <Camera className="logo-icon" />
-            <span>SS Tech Photography</span>
+            <span>Photography</span>
           </div>
 
           <div className="nav-links">
@@ -610,7 +610,7 @@ export default function HomePage({ theme, toggleTheme }) {
         <div className="footer-content">
           <div className="footer-logo">
             <Camera className="logo-icon" />
-            <span>SS Tech Photography</span>
+            <span >Dhawale Photography</span>
           </div>
           <p className="footer-text">Capturing moments, creating memories</p>
           <div className="footer-links">
@@ -618,7 +618,7 @@ export default function HomePage({ theme, toggleTheme }) {
             <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
             <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
           </div>
-          <p className="footer-copyright">© 2024 SS Tech Photography. All rights reserved.</p>
+          <p className="footer-copyright">© 2024 Photography. All rights reserved.</p>
         </div>
       </footer>
 

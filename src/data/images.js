@@ -16,10 +16,10 @@ export const socialLinks = {
 };
 
 export const photographerInfo = {
-  name: "SS Tech Photography",
+  name: "Demo Photography",
   tagline: "Capturing Moments, Creating Memories",
   description: `We don't just take photos—we capture feelings. Every click is a story waiting to be told, a moment frozen in time that you'd want to relive forever. Our lens doesn't see faces; it sees expressions, emotions, and the unspoken words between people.`,
-  signature: "SS Tech Photography",
+  signature: "Demo Photography",
   yearsExperience: 8,
   happyClients: 500,
   awards: 12

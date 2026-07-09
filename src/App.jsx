@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
-const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 
 function Loading() {
   return (
@@ -40,7 +39,6 @@ function AppLayout() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
-          <Route path="/comparisons" element={<ComparisonPage theme={theme} toggleTheme={toggleTheme} />} />
           <Route path="/gallery" element={<Navigate to="/gallery/weddings" replace />} />
           <Route path="/gallery/:category" element={<GalleryPage theme={theme} toggleTheme={toggleTheme} />} />
         </Routes>
