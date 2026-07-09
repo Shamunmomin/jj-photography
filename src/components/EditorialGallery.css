@@ -49,11 +49,6 @@
   will-change: transform;
 }
 
-.editorial-image-card .lazy-image-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
 .editorial-image-card .lazy-img {
   transition: transform var(--editorial-ease-zoom), filter var(--editorial-transition-fast);
   will-change: transform;
@@ -106,11 +101,6 @@
   cursor: pointer;
   box-shadow: var(--editorial-shadow-hero);
   margin-bottom: var(--editorial-gap);
-}
-
-.editorial-hero .lazy-image-wrapper {
-  width: 100%;
-  height: 100%;
 }
 
 .editorial-hero .lazy-img {
